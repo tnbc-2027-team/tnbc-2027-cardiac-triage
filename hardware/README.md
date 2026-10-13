@@ -21,9 +21,3 @@ Also look over these yourself:
 - [ ] Board size, mounting holes and connector positions agreed with Mechanical
 - [ ] Track widths fit the current, especially the pump and valve drivers
 - [ ] Board name and revision on the silkscreen
-
-## Before ordering
-
-- Check the fab's current capabilities (JLCPCB or PCBWay) and set them in **File → Board Setup**.
-- Order from files on `main` that passed the checks, and have a second person check the order before paying.
-- Add the order to the Live Bill of Materials in Notion.
