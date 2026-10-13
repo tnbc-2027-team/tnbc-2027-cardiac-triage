@@ -38,5 +38,10 @@ fp-lib-table text eol=lf
 *.sldasm binary
 *.f3d binary
 
-# Git LFS rules are appended below by 'git lfs track', e.g.
-# mech/**/*.step filter=lfs diff=lfs merge=lfs -text
+# Large CAD files are stored with Git LFS automatically (GitHub Desktop handles this).
+mech/**/*.step filter=lfs diff=lfs merge=lfs -text
+mech/**/*.stp filter=lfs diff=lfs merge=lfs -text
+mech/**/*.sldprt filter=lfs diff=lfs merge=lfs -text
+mech/**/*.sldasm filter=lfs diff=lfs merge=lfs -text
+mech/**/*.f3d filter=lfs diff=lfs merge=lfs -text
+mech/**/*.stl filter=lfs diff=lfs merge=lfs -text

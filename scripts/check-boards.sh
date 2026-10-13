@@ -3,7 +3,7 @@
 # CI runs this on every pull request; run it yourself before asking for review.
 # Exit code 1 if any board has an ERC or DRC error.
 #
-# Source: PCB Design Control for Small Electrical Teams, Section 10.
+# GitHub runs this automatically on every pull request.
 set -uo pipefail
 
 KICAD_CLI="${KICAD_CLI:-kicad-cli}"
