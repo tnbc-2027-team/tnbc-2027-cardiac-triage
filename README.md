@@ -4,7 +4,7 @@ TMU BioDesign's entry to the True North Biomedical Competition 2026-27.
 
 **The challenge:** a portable device that measures **SpO₂, blood pressure and heart rate**, works without outside power or internet, fits different patient sizes, and shows a **High / Medium / Low** triage priority.
 
-Deadlines, tasks and requirements live in **Notion**. This repo only stores our files.
+Deadlines, tasks, documents and meeting notes live in **Notion** and Google Drive. This repo only stores technical files (KiCad, CAD, code).
 
 ## Where files go
 
@@ -15,8 +15,6 @@ Deadlines, tasks and requirements live in **Notion**. This repo only stores our 
 | `firmware/` | Code that runs on the microcontroller | Electrical / Software |
 | `software/` | Code that runs on a computer (data logging, analysis, display) | Software |
 | `mech/` | Enclosure, cuff and clip CAD | Mechanical |
-| `docs/report/` | Design report drafts | Everyone |
-| `docs/pitch/` | Pitch deck and budget | Everyone |
 
 ## New here?
 
