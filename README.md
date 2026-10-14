@@ -16,7 +16,6 @@ Deadlines, tasks and requirements live in **Notion**. This repo only stores our 
 | `software/` | Code that runs on a computer (data logging, analysis, display) | Software |
 | `mech/` | Enclosure, cuff and clip CAD | Mechanical |
 | `docs/report/` | Design report drafts | Everyone |
-| `docs/dfmea/` | Risk analysis (DFMEA) | Everyone |
 | `docs/pitch/` | Pitch deck and budget | Everyone |
 
 ## New here?
@@ -25,8 +24,10 @@ Read **[docs/github-guide.md](docs/github-guide.md)**. It takes about 10 minutes
 
 ## The only 5 rules
 
-1. **Work on your own branch, never directly on `main`.**
-2. **Open a pull request** when your change is ready, and ask one teammate to look at it.
+1. **Put your files in your subteam's folder** (see the table above).
+2. **Always get the latest files before you start** (Fetch, then Pull in GitHub Desktop), and push when you're done.
 3. **Write a clear commit message**, like "Add SpO2 sensor to schematic", not "update".
-4. **Electrical:** everyone uses **KiCad 10**. Files saved in a newer version can't be opened in an older one.
+4. **Tell your subteam before you edit a shared KiCad board or CAD file.** Two people editing the same file at once will overwrite each other.
 5. **Stuck or something looks broken? Ask your subteam lead.** Nothing in Git is lost for good, so don't panic.
+
+Electrical: everyone uses **KiCad 10**. Files saved in a newer version can't be opened in an older one.

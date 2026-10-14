@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # check-boards.sh: run ERC and DRC on every board under hardware/.
-# CI runs this on every pull request; run it yourself before asking for review.
+# GitHub runs this automatically every time someone pushes to main.
 # Exit code 1 if any board has an ERC or DRC error.
 #
-# GitHub runs this automatically on every pull request.
 set -uo pipefail
 
 KICAD_CLI="${KICAD_CLI:-kicad-cli}"
