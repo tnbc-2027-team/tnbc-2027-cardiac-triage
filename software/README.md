@@ -6,6 +6,6 @@ Add a short note here on how to run your tool when you add one.
 
 ## Cardiac Triage Console (prototype)
 
-`cardiac-triage-console/index.html` is a self-contained web prototype for ECG and PPG triage, built by Shaina (software lead).
-To run it, download the file and open it in any browser. No install needed.
-Status: still being tested against external ECG and PPG datasets.
+`triage-console/` holds the ECG and PPG triage prototype, built by Shaina (software lead).
+To run it, open `triage-console/index.html` in any browser. No install needed.
+See `triage-console/README.md` for the detectors, sample data, and the Python and MATLAB versions.
