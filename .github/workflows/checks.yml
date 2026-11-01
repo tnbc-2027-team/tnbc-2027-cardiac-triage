@@ -21,8 +21,6 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v5
-        with:
-          lfs: false   # KiCad files are not in LFS; skipping LFS saves bandwidth quota
 
       - name: ERC and DRC on every board
         run: bash scripts/check-boards.sh
