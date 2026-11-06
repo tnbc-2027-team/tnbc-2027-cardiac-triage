@@ -2,7 +2,7 @@
 	(version 20241209)
 	(generator "kicad_symbol_editor")
 	(generator_version "10.0")
-	(symbol "SEN-12650_AD8232_Module"
+	(symbol "AD8232"
 		(pin_names
 			(offset 1.016)
 		)
@@ -18,7 +18,7 @@
 				(justify bottom left)
 			)
 		)
-		(property "Value" "SEN-12650"
+		(property "Value" "AD8232"
 			(at -12.7 -15.24 0)
 			(effects
 				(font
@@ -27,7 +27,7 @@
 				(justify bottom left)
 			)
 		)
-		(property "Footprint" "team:MODULE_SEN-12650"
+		(property "Footprint" "team:AD8232"
 			(at 0 0 0)
 			(effects
 				(font
@@ -99,7 +99,7 @@
 				(hide yes)
 			)
 		)
-		(symbol "SEN-12650_AD8232_Module_0_0"
+		(symbol "AD8232_0_0"
 			(rectangle
 				(start -12.7 -12.7)
 				(end 12.7 12.7)
