@@ -1,0 +1,257 @@
+(footprint "MODULE_SEN-12650"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "SparkFun AD8232 heart rate monitor module SEN-12650, 35.56 x 27.94 mm, 3-pin electrode header + 6-pin I/O header, 4 mounting holes. Source: SnapEDA")
+	(tags "ECG AD8232 SparkFun module")
+	(property "Reference" "REF**"
+		(at 3.175 -29.21 0)
+		(layer "F.SilkS")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MODULE_SEN-12650"
+		(at 10.16 1.27 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://github.com/sparkfun/AD8232_Heart_Rate_Monitor"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "SparkFun AD8232 heart rate monitor module"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start 0 0)
+		(end 35.56 0)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 35.56 0)
+		(end 35.56 -27.94)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 35.56 -27.94)
+		(end 0 -27.94)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 0 -27.94)
+		(end 0 0)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 0 0)
+		(end 35.56 0)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 35.56 0)
+		(end 35.56 -27.94)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 35.56 -27.94)
+		(end 0 -27.94)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 0 -27.94)
+		(end 0 0)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -0.25 0.25)
+		(end 35.81 0.25)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 35.81 0.25)
+		(end 35.81 -28.19)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 35.81 -28.19)
+		(end -0.25 -28.19)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -0.25 -28.19)
+		(end -0.25 0.25)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_circle
+		(center 11.43 0.75)
+		(end 11.53 0.75)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+	)
+	(pad "" np_thru_hole circle
+		(at 2.54 -25.4)
+		(size 3.302 3.302)
+		(drill 3.302)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 33.02 -25.4)
+		(size 3.302 3.302)
+		(drill 3.302)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 2.54 -2.54)
+		(size 3.302 3.302)
+		(drill 3.302)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 33.02 -2.54)
+		(size 3.302 3.302)
+		(drill 3.302)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "JP1_1" thru_hole circle
+		(at 1.27 -15.24)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP1_2" thru_hole circle
+		(at 1.27 -17.78)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP1_3" thru_hole circle
+		(at 1.27 -20.32)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP3_1" thru_hole rect
+		(at 11.43 -1.27)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP3_2" thru_hole circle
+		(at 13.97 -1.27)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP3_3" thru_hole circle
+		(at 16.51 -1.27)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP3_4" thru_hole circle
+		(at 19.05 -1.27)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP3_5" thru_hole circle
+		(at 21.59 -1.27)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(pad "JP3_6" thru_hole circle
+		(at 24.13 -1.27)
+		(size 1.524 1.524)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(solder_mask_margin 0.102)
+	)
+	(embedded_fonts no)
+)
