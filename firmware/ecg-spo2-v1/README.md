@@ -1,0 +1,80 @@
+# ECG + SpO₂ firmware v1 (combined bench test)
+
+First combined version: the AD8232 ECG board and a MAX30102 SpO₂ sensor on one breadboard with one ESP32. It's for testing the combined circuit. It shows both waves plus SpO₂ and heart rate in the Arduino Serial Plotter or Serial Monitor.
+
+- **Works with:** `hardware/ecg-schematic-v1` (Rev A) and a MAX30102 module
+- **Based on:** `ecg-v1` (same ECG pins) and `spo2-v1` (same SpO₂ pins and sensor settings)
+- **Status:** written 2026-11-24, not yet tested on hardware or compiled
+
+## What's in here
+
+| Path | What it is |
+|---|---|
+| `esp32-devkit/ecg_spo2_v1_esp32/ecg_spo2_v1_esp32.ino` | Sketch for the ESP32 Dev Module |
+| `esp32-devkit/PINOUT.md` | Wiring for both sensors and the breadboard layout |
+
+## How to run it
+
+1. Wire both sensors using `esp32-devkit/PINOUT.md`.
+2. In the Arduino IDE, install the **ESP32 board package** (Boards Manager → "esp32" by Espressif) and the library **"SparkFun MAX3010x Pulse and Proximity Sensor Library"** (Library Manager).
+3. Open the `.ino`, pick **ESP32 Dev Module** and the port, and upload.
+4. Open **Tools → Serial Plotter** (or Serial Monitor) and set it to **230400 baud**. This is faster than the 115200 used by the single-sensor versions.
+5. Put on the electrodes (RA, LA, RL) and place a finger on the SpO₂ sensor. SpO₂ and heart rate show up about 5 seconds later.
+
+When electrodes are on a person, run the ESP32 from a battery or power bank, or from a laptop running on battery.
+
+## What you'll see
+
+One line per ECG sample, 250 lines per second:
+
+```
+ecg:2051,ppg:812,spo2:98,hr:72
+```
+
+| Value | Meaning | When it's 0 or flat |
+|---|---|---|
+| `ecg` | Raw ECG reading, 0 to 4095 | `0` = an electrode is off |
+| `ppg` | Pulse wave from the IR LED, with the slow level removed so beats show up | Flat at 800 = no finger |
+| `spo2` | SpO₂ in %, updated every second from the last 4 seconds | `0` = no finger, or not a clean enough reading yet |
+| `hr` | Heart rate in bpm from the pulse wave, same timing | `0` = same as above |
+
+In the Serial Plotter, `ecg` and `ppg` draw as waves, and `spo2` and `hr` draw as near-flat lines near the bottom. Their current numbers are shown in the legend.
+
+## How it works
+
+- **ECG:** sampled at a fixed **250 Hz** by its own task on the ESP32's second core, so printing and reading the SpO₂ sensor can't throw off its timing.
+- **SpO₂ sensor:** same settings as `spo2-v1` (Red + IR, 100 samples per second). The sensor stores samples in its own buffer and the main loop reads them in batches.
+- **SpO₂ and heart rate:** calculated with the SparkFun/Maxim algorithm that comes with the SparkFun library. It works on the last 4 seconds of data and recalculates every second. This is a known, simple algorithm that's fine for checking the circuit works. Our own processing will replace it later.
+- When the finger comes off, the SpO₂ window resets, so the 4 seconds start again when the finger is back.
+
+## Settings you might change
+
+All are constants at the top of the sketch.
+
+| Setting | Default | Change it when |
+|---|---|---|
+| `LED_BRIGHTNESS` | 60 | The pulse wave is tiny (raise it) or `ppg` clips/flat-lines with a finger on (lower it) |
+| `FINGER_IR_THRESHOLD` | 50000 | `spo2`/`hr` stay 0 with a finger on, or the PPG jumps around with no finger |
+| `PPG_PLOT_GAIN` | 1.0 | The PPG wave looks too small or too big next to the ECG |
+| `PPG_PLOT_OFFSET` | 800 | The PPG wave overlaps the ECG on the plot |
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `ERROR: MAX30102 not found` repeating | Check SDA/SCL aren't swapped, the sensor is on 3V3, and grounds are connected |
+| Garbage characters in the Serial Monitor | Set the baud rate to 230400 |
+| `ecg` is always 0 | An electrode is off or LO+/LO− is miswired. Check that SDN is tied to 3V3. |
+| ECG is very noisy | Unplug the laptop charger, keep leads short and still, check the electrodes are stuck down |
+| `spo2`/`hr` stay 0 | Keep the finger still for at least 5 s with light, steady pressure. Then tune `LED_BRIGHTNESS` and `FINGER_IR_THRESHOLD`. |
+| Heart rate from `hr` doesn't match the ECG | Normal for this simple algorithm when there's movement. Stay still and compare again. |
+
+## Versions
+
+Don't edit a version once it's been used to record data. Copy it to `ecg-spo2-v2/` instead.
+
+| Version | Date | Who | What changed |
+|---|---|---|---|
+| v1 | 2026-11-24 | Arta | First combined version: ECG at a fixed 250 Hz and MAX30102 on one ESP32. Serial Plotter output with SpO₂ and HR. |
+
+Ideas for v2: a CSV logging mode with one shared timestamp for both sensors, for recording data the software team can use.
