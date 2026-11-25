@@ -12,6 +12,7 @@ First combined version: the AD8232 ECG board and a MAX30102 SpO₂ sensor on one
 |---|---|
 | `esp32-devkit/ecg_spo2_v1_esp32/ecg_spo2_v1_esp32.ino` | Sketch for the ESP32 Dev Module |
 | `esp32-devkit/PINOUT.md` | Wiring for both sensors and the breadboard layout |
+| `tools/live_plot.py` | Live plot of the last 5 s of ECG and PPG with SpO₂ and HR (better than the Arduino Serial Plotter) |
 
 ## How to run it
 
@@ -37,6 +38,17 @@ ecg:2051,ppg:812,spo2:98,hr:72
 | `ppg` | Pulse wave from the IR LED, with the slow level removed so beats show up | Flat at 800 = no finger |
 | `spo2` | SpO₂ in %, updated every second from the last 4 seconds | `0` = no finger, or not a clean enough reading yet |
 | `hr` | Heart rate in bpm from the pulse wave, same timing | `0` = same as above |
+
+## Seeing the waves properly
+
+The Arduino Serial Plotter only shows the last 50 points, which is 0.2 s at 250 lines per second: too short to see a heartbeat. Use the live plot instead (close the Serial Monitor/Plotter first, since only one program can use the port):
+
+```
+pip install pyserial matplotlib
+python tools/live_plot.py COM4
+```
+
+It shows the last 5 seconds of ECG and PPG, with SpO₂ and HR in the title.
 
 In the Serial Plotter, `ecg` and `ppg` draw as waves, and `spo2` and `hr` draw as near-flat lines near the bottom. Their current numbers are shown in the legend.
 
