@@ -4,7 +4,7 @@ First combined version: the AD8232 ECG board and a MAX30102 SpO₂ sensor on one
 
 - **Works with:** `hardware/ecg-schematic-v1` (Rev A) and a MAX30102 module
 - **Based on:** `ecg-v1` (same ECG pins) and `spo2-v1` (same SpO₂ pins and sensor settings)
-- **Status:** written 2026-11-24, not yet tested on hardware or compiled
+- **Status:** written 2026-11-24. Compiles for ESP32 Dev Module (Arduino ESP32 core 3.3.10, SparkFun MAX3010x 1.1.2). Not yet tested on hardware.
 
 ## What's in here
 
