@@ -45,10 +45,10 @@ The Arduino Serial Plotter only shows the last 50 points, which is 0.2 s at 250 
 
 ```
 pip install pyserial matplotlib
-python tools/live_plot.py COM4
+python tools/live_plot.py
 ```
 
-It shows the last 5 seconds of ECG and PPG, with SpO₂ and HR in the title.
+It finds the ESP32's port by itself (or pass one, e.g. `COM4`), waits if the board is unplugged, and shows the last 5 seconds of ECG and PPG with SpO₂ and HR in the title.
 
 In the Serial Plotter, `ecg` and `ppg` draw as waves, and `spo2` and `hr` draw as near-flat lines near the bottom. Their current numbers are shown in the legend.
 
