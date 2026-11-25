@@ -29,7 +29,7 @@ N = RATE_HZ * WINDOW_S
 ecg = collections.deque([0] * N, maxlen=N)
 ppg = collections.deque([0] * N, maxlen=N)
 latest = {"spo2": 0, "hr": 0}
-status = {"text": "Looking for the ESP32...", "got_data": False}
+status = {"text": "Looking for the ESP32...", "got_data": False, "port": None, "last_raw": ""}
 USB_SERIAL_HINTS = ("cp210", "silicon labs", "ch340", "ch910", "wch", "usb-serial", "usb serial", "uart", "ftdi")
 lock = threading.Lock()
 
@@ -63,9 +63,13 @@ def reader():
         try:
             with serial.Serial(port, BAUD, timeout=1) as ser:
                 status["text"] = f"Connected on {port}, waiting for data..."
+                status["port"] = port
                 while True:
-                    values = parse(ser.readline().decode(errors="ignore").strip())
+                    raw = ser.readline().decode(errors="ignore").strip()
+                    values = parse(raw)
                     if values is None:
+                        if raw:
+                            status["last_raw"] = raw
                         continue
                     e, p, s, h = values
                     with lock:
@@ -108,6 +112,9 @@ def main():
         autoscale(ax_p, p)
         if status["got_data"]:
             title.set_text(f"SpO2: {s or '--'} %      HR: {h or '--'} bpm")
+        elif status["last_raw"] and status["port"]:
+            title.set_text(f"{status['port']}: board is sending \"{status['last_raw'][:70]}\" "
+                           "(expected ecg:...,ppg:...). Re-upload ecg_spo2_v1_esp32.")
         else:
             title.set_text(status["text"])
         return line_e, line_p, title
