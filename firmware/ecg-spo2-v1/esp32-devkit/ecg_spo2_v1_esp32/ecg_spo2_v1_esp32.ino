@@ -10,8 +10,19 @@
  * Board:   Tools > Board > esp32 > "ESP32 Dev Module"
  * Library: "SparkFun MAX3010x Pulse and Proximity Sensor Library" (Library Manager)
  *
- * Output: Serial Monitor or Serial Plotter at 115200 baud.
- * One line per ECG sample (250 lines per second):
+ * Output at 115200 baud, one line per ECG sample (250 lines per second).
+ * Two modes, set by CSV_OUTPUT below:
+ *
+ * CSV_OUTPUT = true: recording CSV for the triage console's "Upload your own CSV":
+ *
+ *   ms,ECG,RED,IR
+ *   0,2051,98123,104550
+ *
+ *   ms       sample time from the ECG sample count (4 ms steps)
+ *   ECG      raw ECG reading (0-4095), 0 when an electrode is off
+ *   RED, IR  latest raw MAX30102 readings (100 Hz, so values repeat 2-3 times)
+ *
+ * CSV_OUTPUT = false (default): live view for tools/live_plot.py or the Serial Plotter:
  *
  *   ecg:2051,ppg:812,spo2:98,hr:72
  *
@@ -33,6 +44,8 @@
 #include "spo2_algorithm.h"  // SparkFun/Maxim SpO2 + HR algorithm, same library
 
 // ---------------- Configuration ----------------
+
+static const bool CSV_OUTPUT = false;  // true = ms,ECG,RED,IR recording CSV; false = live view
 
 static const uint32_t SERIAL_BAUD = 115200;  // ~30 chars x 250 lines/s = ~7.5 kB/s, fits in 115200
 
@@ -82,6 +95,10 @@ int32_t ppgPlot = (int32_t)PPG_PLOT_OFFSET;
 
 int32_t spo2Out = 0;
 int32_t hrOut = 0;
+
+uint32_t lastRed = 0;
+uint32_t lastIr = 0;
+uint32_t ecgSampleCount = 0;
 
 // ---------------- ECG task (core 0, fixed 250 Hz) ----------------
 
@@ -183,6 +200,10 @@ void setup() {
   sensor.setup(LED_BRIGHTNESS, SAMPLE_AVERAGE, LED_MODE,
                SAMPLE_RATE, PULSE_WIDTH, ADC_RANGE);
 
+  if (CSV_OUTPUT) {
+    Serial.println("ms,ECG,RED,IR");
+  }
+
   ecgQueue = xQueueCreate(128, sizeof(uint16_t));
   xTaskCreatePinnedToCore(ecgTask, "ecg", 2048, nullptr, 2, nullptr, 0);
 }
@@ -195,13 +216,21 @@ void loop() {
     uint32_t red = sensor.getFIFORed();
     uint32_t ir  = sensor.getFIFOIR();
     sensor.nextSample();
+    lastRed = red;
+    lastIr = ir;
     handlePpgSample(red, ir);
   }
 
   uint16_t ecg;
   while (xQueueReceive(ecgQueue, &ecg, 0) == pdTRUE) {
-    Serial.printf("ecg:%u,ppg:%ld,spo2:%ld,hr:%ld\n",
-                  ecg, (long)ppgPlot, (long)spo2Out, (long)hrOut);
+    if (CSV_OUTPUT) {
+      Serial.printf("%lu,%u,%lu,%lu\n", (unsigned long)(ecgSampleCount * ECG_PERIOD_MS),
+                    ecg, (unsigned long)lastRed, (unsigned long)lastIr);
+      ecgSampleCount++;
+    } else {
+      Serial.printf("ecg:%u,ppg:%ld,spo2:%ld,hr:%ld\n",
+                    ecg, (long)ppgPlot, (long)spo2Out, (long)hrOut);
+    }
   }
 
   delay(1);

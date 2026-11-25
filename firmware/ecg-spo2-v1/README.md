@@ -12,7 +12,7 @@ First combined version: the AD8232 ECG board and a MAX30102 SpO₂ sensor on one
 |---|---|
 | `esp32-devkit/ecg_spo2_v1_esp32/ecg_spo2_v1_esp32.ino` | Sketch for the ESP32 Dev Module |
 | `esp32-devkit/PINOUT.md` | Wiring for both sensors and the breadboard layout |
-| `tools/live_plot.py` | Live plot of the last 5 s of ECG and PPG with SpO₂ and HR (better than the Arduino Serial Plotter) |
+| `tools/live_plot.py` | Live plot of the last 5 s of ECG and PPG, with SpO₂ and HR, and a Record button that saves CSVs for the triage console |
 
 ## How to run it
 
@@ -52,6 +52,25 @@ It finds the ESP32's port by itself (or pass one, e.g. `COM4`), waits if the boa
 
 In the Serial Plotter, `ecg` and `ppg` draw as waves, and `spo2` and `hr` draw as near-flat lines near the bottom. Their current numbers are shown in the legend.
 
+## Recording data for the triage console
+
+The sketch has two output modes, set by `CSV_OUTPUT` at the top:
+
+| `CSV_OUTPUT` | Output | Use it for |
+|---|---|---|
+| `false` (default) | `ecg:…,ppg:…,spo2:…,hr:…` | Watching the live plot with SpO₂ and HR |
+| `true` | `ms,ECG,RED,IR` (raw, 250 rows per second) | Recording CSVs for the triage console |
+
+To record:
+
+1. Set `CSV_OUTPUT = true` and upload.
+2. Run `tools/live_plot.py`, put on the electrodes and a finger, then press **Record** and later **Stop**. The file goes in `tools/recordings/`, named by date and time.
+3. In `software/triage-console/index.html`, use **Upload your own CSV** on the ECG or PPG tab. The console reads `ms` as the time column (250 Hz), `ECG` as the ECG and `IR` as the pulse signal, and flips the raw IR itself. On the PPG tab it also checks every pulse against the ECG and measures pulse arrival time.
+
+`RED` and `IR` update at 100 Hz, so each value repeats 2–3 times in the 250 Hz rows. `ECG` is 0 while an electrode is off, so start recording once the trace looks right.
+
+Put recordings worth keeping in a `data/` folder here, named like `YYYY-MM-DD_ecg-spo2-v1_<who>_<what>.csv`.
+
 ## How it works
 
 - **ECG:** sampled at a fixed **250 Hz** by its own task on the ESP32's second core, so printing and reading the SpO₂ sensor can't throw off its timing.
@@ -89,4 +108,4 @@ Don't edit a version once it's been used to record data. Copy it to `ecg-spo2-v2
 |---|---|---|---|
 | v1 | 2026-11-24 | Arta | First combined version: ECG at a fixed 250 Hz and MAX30102 on one ESP32. Serial Plotter output with SpO₂ and HR. |
 
-Ideas for v2: a CSV logging mode with one shared timestamp for both sensors, for recording data the software team can use.
+Ideas for v2: on-device R-peak and pulse detection, so heart rate comes from the waveform instead of the SparkFun estimate.
