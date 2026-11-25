@@ -10,7 +10,7 @@
  * Board:   Tools > Board > esp32 > "ESP32 Dev Module"
  * Library: "SparkFun MAX3010x Pulse and Proximity Sensor Library" (Library Manager)
  *
- * Output: Serial Monitor or Serial Plotter at 230400 baud.
+ * Output: Serial Monitor or Serial Plotter at 115200 baud.
  * One line per ECG sample (250 lines per second):
  *
  *   ecg:2051,ppg:812,spo2:98,hr:72
@@ -34,7 +34,7 @@
 
 // ---------------- Configuration ----------------
 
-static const uint32_t SERIAL_BAUD = 230400;  // 250 lines/s needs more than 115200
+static const uint32_t SERIAL_BAUD = 115200;  // ~30 chars x 250 lines/s = ~7.5 kB/s, fits in 115200
 
 // ECG (AD8232) - same as ecg-v1
 static const int ECG_OUT_PIN  = 36;  // GPIO36 (VP), ADC1

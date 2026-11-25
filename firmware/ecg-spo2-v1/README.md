@@ -18,7 +18,7 @@ First combined version: the AD8232 ECG board and a MAX30102 SpO₂ sensor on one
 1. Wire both sensors using `esp32-devkit/PINOUT.md`.
 2. In the Arduino IDE, install the **ESP32 board package** (Boards Manager → "esp32" by Espressif) and the library **"SparkFun MAX3010x Pulse and Proximity Sensor Library"** (Library Manager).
 3. Open the `.ino`, pick **ESP32 Dev Module** and the port, and upload.
-4. Open **Tools → Serial Plotter** (or Serial Monitor) and set it to **230400 baud**. This is faster than the 115200 used by the single-sensor versions.
+4. Open **Tools → Serial Plotter** (or Serial Monitor) and set it to **115200 baud**.
 5. Put on the electrodes (RA, LA, RL) and place a finger on the SpO₂ sensor. SpO₂ and heart rate show up about 5 seconds later.
 
 When electrodes are on a person, run the ESP32 from a battery or power bank, or from a laptop running on battery.
@@ -63,7 +63,7 @@ All are constants at the top of the sketch.
 | Problem | Fix |
 |---|---|
 | `ERROR: MAX30102 not found` repeating | Check SDA/SCL aren't swapped, the sensor is on 3V3, and grounds are connected |
-| Garbage characters in the Serial Monitor | Set the baud rate to 230400 |
+| Garbage characters in the Serial Monitor | Set the baud rate to 115200 |
 | `ecg` is always 0 | An electrode is off or LO+/LO− is miswired. Check that SDN is tied to 3V3. |
 | ECG is very noisy | Unplug the laptop charger, keep leads short and still, check the electrodes are stuck down |
 | `spo2`/`hr` stay 0 | Keep the finger still for at least 5 s with light, steady pressure. Then tune `LED_BRIGHTNESS` and `FINGER_IR_THRESHOLD`. |
